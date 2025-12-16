@@ -1,13 +1,13 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { CountriesService } from './countries.service';
-import { AuthGuard } from '../auth/auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('countries')
-@UseGuards(AuthGuard)
+@UseGuards(JwtAuthGuard)
 @Throttle({ default: { limit: 30, ttl: 60000 } })
 export class CountriesController {
-  constructor(private countriesService: CountriesService) {}
+  constructor(private countriesService: CountriesService) { }
 
   @Get(':name')
   async getCountry(@Param('name') name: string) {
