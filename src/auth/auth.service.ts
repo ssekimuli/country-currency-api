@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/require-await */
-// src/auth/auth.service.ts
+
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -30,11 +31,11 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  async login(user: any, _password: string) {
     const payload = {
       username: user.username,
       sub: user.id,
-      role: user.role
+      role: user.role,
     };
 
     return {

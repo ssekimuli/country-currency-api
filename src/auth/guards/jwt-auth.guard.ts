@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import {
     CanActivate,
     ExecutionContext,
@@ -14,7 +14,6 @@ export class JwtAuthGuard implements CanActivate {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const token = this.extractTokenFromHeader(request);
 
         if (!token) {
@@ -22,11 +21,9 @@ export class JwtAuthGuard implements CanActivate {
         }
 
         try {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const payload = await this.jwtService.verifyAsync(token, {
                 secret: 'your-secret-key-change-in-production',
             });
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             request['user'] = payload;
         } catch {
             throw new UnauthorizedException();
